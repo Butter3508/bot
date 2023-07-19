@@ -115,7 +115,10 @@ function run(client) {
         const args = msg.slice(prefix.length).trim().split(/ +/g);
         const cmd = args.shift().toLowerCase();
         const command = await bot.commands.find(c => c.name == cmd);
-        if (command) { command.run(bot, user, msg, args) }
+        if (command) {
+            if (command.admin && user.trim() !== 'Butter7838') return
+            command.run(bot, user, msg, args);
+        }
     })
 
     client.on('messageCreate', async(msg) => {
@@ -124,10 +127,10 @@ function run(client) {
 
         if (msg.content.startsWith('/')) {
             msg.react('👍');
-            await bot.chat(msg.content);
+            await bot?.chat(msg.content);
         } else {
             msg.react('👍');
-            await bot.chat(`[${msg.author.tag}] ${msg.content}`)
+            await bot?.chat(`[${msg.author.tag}] ${msg.content}`)
         }
     })
 

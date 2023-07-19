@@ -1,9 +1,9 @@
 const mineflayer = require('mineflayer')
-const { facts } = require('../config.json')
 
 module.exports = {
-    name: 'fact',
-    description: 'Đưa ra một sự thật nổ não :exploding_head:',
+    name: 'eval',
+    description: 'Admin-Only',
+    admin: true,
     /**
      * 
      * @param {mineflayer.Bot} bot 
@@ -12,7 +12,8 @@ module.exports = {
      * @param {String[]} args 
      */
     async run(bot, user, msg, args) {
-        let randomFact = facts[Math.floor(Math.random() * facts.length)];
-        bot.chat(randomFact)
+        if (!args[0]) return
+        let str = eval(args.join(' '));
+        bot.whisper(user, str);
     }
 }
