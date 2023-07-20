@@ -14,7 +14,7 @@ module.exports = {
     async run(bot, user, msg, args) {
         if (!args[0]) {
             const files = fs.readdirSync('./commands').filter(file => file.endsWith('.js')).map(f => f.substring(0, f.indexOf('.js')));
-            bot.chat('Hiện tại có các lệnh: ' + files.join(', '));
+            bot.chat('&bHiện tại có các lệnh: &a' + files.join(', '));
         } else {
             const cmd = await bot.commands.find(c => c.name == args[0]);
             if (!cmd) return bot.whisper(user, `Không có lệnh ${args[0]}`);

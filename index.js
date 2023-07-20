@@ -1,10 +1,11 @@
+require('events').EventEmitter.setMaxListeners(100)
 require('dotenv').config();
 const Discord = require('discord.js');
 const mineflayer = require('mineflayer');
 const tps = require('mineflayer-tps')(mineflayer);
 const fs = require('fs')
 const env = process.env
-const { messages } = require('./config.json')
+const { messages, colorCodes } = require('./config.json')
 const deathEvent = require('mineflayer-death-event')
 
 const client = new Discord.Client({
@@ -50,14 +51,14 @@ function run(client) {
 
     bot.on('end', (r) => {
         if (r.trim() == 'Under maintenance.') {
-            setTimeout(() => run(client), 10 * 60 * 1000);
+            setTimeout(() => run(client), 1 * 60 * 1000);
         } else {
-            setTimeout(() => run(client), 10000);
+            setTimeout(() => run(client), 5 * 1000);
         }
     });
 
     bot.on('error', () => {
-        setTimeout(() => run(client), 10000);
+        setTimeout(() => run(client), 5 * 1000);
     });
 
     bot.on('windowOpen', (window) => {
@@ -88,8 +89,11 @@ function run(client) {
     });
 
     bot.on('spawn', () => {
-        let randomChat = messages[Math.floor(Math.random() * messages.length)];
-        bot.chat(randomChat)
+        setInterval(() => {
+            let randomChat = messages[Math.floor(Math.random() * messages.length)];
+            let randomColor = `&${colorCodes[Math.floor(Math.random() * colorCodes.length)]}`
+            bot.chat(`${randomColor}${randomChat}`)
+        }, 1 * 60 * 1000)
     })
 
     bot.on('chat', async(user, msg) => {
@@ -130,7 +134,7 @@ function run(client) {
             await bot?.chat(msg.content);
         } else {
             msg.react('👍');
-            await bot?.chat(`[${msg.author.tag}] ${msg.content}`)
+            await bot?.chat(`&e[${msg.author.tag}] &b${msg.content}`)
         }
     })
 

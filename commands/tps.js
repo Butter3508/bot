@@ -12,8 +12,21 @@ module.exports = {
      */
     async run(bot, user, msg, args) {
         const str = bot.tablist.footer.toString();
-        const tpsStr = str.trim().substring(16, str.indexOf(' tps'))
+        let tpsStr = str.trim().substring(16, str.indexOf(' tps'))
 
-        bot.chat(`TPS (tablist): ${tpsStr}`)
+        let tps = tpsStr == 'Perfect' ? 20 : Number(tpsStr);
+
+        if (tps >= 19) {
+            bot.chat(`&bTPS (tablist): &a${tps}`)
+        } else if (tps >= 10) {
+            bot.chat(`&bTPS (tablist): &e${tps}`)
+        } else if (tps >= 5) {
+            bot.chat(`&bTPS (tablist): &c${tps}`)
+        } else if (tps >= 0.35) {
+            bot.chat(`&bTPS (tablist): &4${tps}`)
+        } else {
+            bot.chat(`&bTPS (tablist): &d${tps}`)
+        }
+
     }
 }

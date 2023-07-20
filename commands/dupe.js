@@ -11,9 +11,9 @@ module.exports = {
      * @param {String[]} args 
      */
     async run(bot, user, msg, args) {
-        if (!args[0]) return bot.chat('Bạn phải nhập tên kit cần dupe')
+        if (!args[0]) return bot.chat('&cBạn phải nhập tên kit cần dupe')
         const kitName = args.join(' ');
 
-        bot.chat(`Đã dupe cho ${user} kit ${kitName}`)
+        bot.chat(`Đã dupe cho &b${user}&f kit &e${kitName}`)
     }
 }

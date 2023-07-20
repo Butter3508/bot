@@ -1,5 +1,5 @@
 const mineflayer = require('mineflayer')
-const { facts } = require('../config.json')
+const { facts, colorCodes } = require('../config.json')
 
 module.exports = {
     name: 'fact',
@@ -13,6 +13,7 @@ module.exports = {
      */
     async run(bot, user, msg, args) {
         let randomFact = facts[Math.floor(Math.random() * facts.length)];
-        bot.chat(randomFact)
+        let randomColor = `&${colorCodes[Math.floor(Math.random() * colorCodes.length)]}`
+        bot.chat(`${randomColor}${randomFact}`)
     }
 }
